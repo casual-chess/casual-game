@@ -17,13 +17,13 @@ public class GameController {
     @Autowired
     GameManagerService gameManagerService;
 
-    // 1. Create a New Game for Given 2 Users
+    //* Create a New Game for Given 2 Users
     @PostMapping
     public ResponseEntity<ApiResponse<Game>> createGame(@RequestBody NewGameRequest gameRequest) {
         Game game = gameManagerService.createGame(gameRequest);
 
         ApiResponse<Game> apiResponse = new ApiResponse<>(ApiResponseConstants.SUCCESS, game);
-        return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);  // return 201 Created status
+        return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
 //    // 2. Get All Active or Running Games for a Given User
