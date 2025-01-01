@@ -1,15 +1,15 @@
-package org.casual_chess.cc_game.service.impl;
+package org.casual_chess.cc_game.repository.impl;
 
 import org.casual_chess.cc_game.model.Game;
-import org.casual_chess.cc_game.service.GameCacheRepository;
+import org.casual_chess.cc_game.repository.IGameCacheRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-public class InMemoryGameCacheRepository implements GameCacheRepository {
-    private final Map<String, Game> gameMap = new HashMap<>();
+public class InMemoryGameCacheRepository implements IGameCacheRepository {
+    private final Map<String, Game> gameMap = new ConcurrentHashMap<>();
 
     @Override
     public void put(String gameId, Game game) {

@@ -24,6 +24,11 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.24'  // Adjust version as needed
 	annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
+	// Spring Boot Starter for Redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	// Redis dependencies
+	implementation 'org.springframework.data:spring-data-redis'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
