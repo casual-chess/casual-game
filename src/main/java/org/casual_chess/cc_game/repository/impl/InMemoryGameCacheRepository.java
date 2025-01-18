@@ -14,6 +14,9 @@ public class InMemoryGameCacheRepository implements IGameCacheRepository {
     @Override
     public void put(String gameId, Game game) {
         gameMap.put(gameId, game);
+
+        //TODO: we should add a TTL to the cache
+        // so that at some point the game is removed from cache
     }
 
     @Override

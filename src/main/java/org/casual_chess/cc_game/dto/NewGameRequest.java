@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class NewGameRequest {
-    @JsonProperty("white_player_id")
+    @JsonProperty("whitePlayerId")
     private String whitePlayerId;
 
-    @JsonProperty("black_player_id")
+    @JsonProperty("blackPlayerId")
     private String blackPlayerId;
 }

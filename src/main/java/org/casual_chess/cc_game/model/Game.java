@@ -10,4 +10,6 @@ public class Game {
     String whitePlayerId;
     String blackPlayerId;
     GameStatus gameStatus;
+    String fen;
+    //list of moves played 
 }

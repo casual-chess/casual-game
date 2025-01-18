@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ApiResponse<T> {
-    @JsonProperty("status_code")
+    @JsonProperty("statusCode")
     private String statusCode;
 
     @JsonProperty("data")
