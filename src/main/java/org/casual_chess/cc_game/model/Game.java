@@ -3,6 +3,8 @@ package org.casual_chess.cc_game.model;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Builder
 @Data
 public class Game {
@@ -11,5 +13,5 @@ public class Game {
     String blackPlayerId;
     GameStatus gameStatus;
     String fen;
-    //list of moves played 
+    List<Move> movesPlayed;
 }
