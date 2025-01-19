@@ -5,7 +5,7 @@ import org.casual_chess.cc_game.model.Game;
 import org.casual_chess.cc_game.model.GameStatus;
 import org.casual_chess.cc_game.model.Move;
 import org.casual_chess.cc_game.repository.IGameCacheRepository;
-import org.casual_chess.cc_game.service.ChessLogicService;
+import org.casual_chess.cc_game.service.IChessLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

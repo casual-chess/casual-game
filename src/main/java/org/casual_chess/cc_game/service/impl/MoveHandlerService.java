@@ -8,9 +8,12 @@ import org.casual_chess.cc_game.dto.InvalidMoveEvent;
 import org.casual_chess.cc_game.dto.MoveEvent;
 import org.casual_chess.cc_game.model.Game;
 import org.casual_chess.cc_game.model.GameStatus;
+import org.casual_chess.cc_game.model.Move;
 import org.casual_chess.cc_game.pubsub.IPubSubPublisher;
 import org.casual_chess.cc_game.pubsub.IPubSubSubscriber;
+import org.casual_chess.cc_game.repository.IGameCacheRepository;
 import org.casual_chess.cc_game.repository.IUserRepository;
+import org.casual_chess.cc_game.service.IChessLogicService;
 import org.casual_chess.cc_game.util.IJsonSerializerDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +30,13 @@ public class MoveHandlerService {
     private final IPubSubSubscriber subscriber;
 
     @Autowired
-    IUserRepository userRepository;
+    IGameCacheRepository inMemoryGameCacheRepository;
 
     @Autowired
     IJsonSerializerDeserializer jsonSerializerDeserializer;
+
+    @Autowired
+    IChessLogicService chessLogicService;
 
     public MoveHandlerService(IPubSubPublisher publisher, IPubSubSubscriber subscriber) {
         this.publisher = publisher;
@@ -52,14 +58,13 @@ public class MoveHandlerService {
             return;
         }
 
-        //TODO: game = get game state from cache (or db)
-        Game game = Game.builder()
-                .gameId(UUID.randomUUID())
-                .whitePlayerId(Long.valueOf(1).toString())
-                .blackPlayerId(Long.valueOf(2).toString())
-                .gameStatus(GameStatus.WHITE_TO_MOVE)
-                .movesPlayed(List.of())
-                .build();
+        //* get game state from cache (or db)
+        Game game = inMemoryGameCacheRepository.get(moveEvent.getGameId());
+        if (game == null) {
+            //* if game does not exist
+            log.error("Game not found: {}", moveEvent.getGameId());
+            return;
+        }
 
         Game newGameState = playMoveWithValidation(game, moveEvent);
         if (newGameState == null) {
@@ -86,9 +91,16 @@ public class MoveHandlerService {
             return null;
         }
 
-        //* TODO: check if move is legal using chess logic service
+        //* check if move is legal using chess logic service
         //* if yes, then update the game state and return new game state [don't mutate the current game state]
         //* otherwise return null
-        return currentGameState;
+        return chessLogicService.updateGameState(currentGameState, convertToMove(moveEvent));
+    }
+
+    private Move convertToMove(MoveEvent moveEvent) {
+        return Move.builder()
+            .moveNotation(moveEvent.getMoveAlgebraic())
+            .player(moveEvent.getPlayerColor())
+            .build();
     }
 }
