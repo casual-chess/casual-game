@@ -9,18 +9,20 @@ import org.casual_chess.cc_game.service.ChessLogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class GameManagerService {
     @Autowired
     IGameCacheRepository gameCacheRepository;
 
-    @Autowired
-    ChessLogicService chessLogicService;
+//    @Autowired
+//    ChessLogicService chessLogicService;
 
     // 1. Create a New Game
     public Game createGame(NewGameRequest newGameRequest) {
         //* TODO: generate new game id
-        String TEST_GAME_ID = "testGameId";
+        UUID TEST_GAME_ID = UUID.randomUUID();
 
         Game game = Game.builder()
                 .gameId(TEST_GAME_ID)
@@ -39,16 +41,17 @@ public class GameManagerService {
         return game;
     }
 
-    public Game updateGame(String gameId, Move move) {
+    public Game updateGame(UUID gameId, Move move) {
         Game game = gameCacheRepository.get(gameId);
         //*TODO: throw proper exception
         if (game == null)
             throw new RuntimeException("Game not found");
 
-        if (!chessLogicService.isLegalMove(game, move))
-            throw new RuntimeException("Illegal move");
-
-        game = chessLogicService.updateGameState(game, move);
+        //TODO
+//        if (!chessLogicService.isLegalMove(game, move))
+//            throw new RuntimeException("Illegal move");
+//
+//        game = chessLogicService.updateGameState(game, move);
 
         //* TODO: update in database
         // game = gameRepository.save(game);

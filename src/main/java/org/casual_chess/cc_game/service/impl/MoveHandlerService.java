@@ -18,6 +18,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -53,11 +54,10 @@ public class MoveHandlerService {
 
         //TODO: game = get game state from cache (or db)
         Game game = Game.builder()
-                .gameId("550e8400-e29b-41d4-a716-446655440000")
+                .gameId(UUID.randomUUID())
                 .whitePlayerId(Long.valueOf(1).toString())
                 .blackPlayerId(Long.valueOf(2).toString())
                 .gameStatus(GameStatus.WHITE_TO_MOVE)
-                .fen("testFen")
                 .movesPlayed(List.of())
                 .build();
 

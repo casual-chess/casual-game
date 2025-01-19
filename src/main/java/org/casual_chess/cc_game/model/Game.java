@@ -4,14 +4,14 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Data
 public class Game {
-    String gameId;
+    UUID gameId;
     String whitePlayerId;
     String blackPlayerId;
     GameStatus gameStatus;
-    String fen;
     List<Move> movesPlayed;
 }
