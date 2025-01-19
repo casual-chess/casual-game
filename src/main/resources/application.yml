@@ -1,0 +1,8 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/casualchess
+    username: casualchess
+    password: password
+  sql:
+    init:
+      mode: always
