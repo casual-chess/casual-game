@@ -1,9 +1,9 @@
 package org.casual_chess.cc_game.service;
 
-import org.casual_chess.cc_game.model.Game;
-import org.casual_chess.cc_game.model.Move;
+import org.casual_chess.cc_game.entity.MoveEntity;
+import org.casual_chess.cc_game.model.GameWithMoves;
 
 public interface IChessLogicService {
-    boolean isLegalMove(Game game, Move move);
-    Game updateGameState(Game game, Move move);
+    boolean isLegalMove(GameWithMoves game, MoveEntity move);
+    GameWithMoves updateGameState(GameWithMoves game, MoveEntity move);
 }

@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class NewGameRequest {
     @JsonProperty("whitePlayerId")
-    private String whitePlayerId;
+    private Long whitePlayerId;
 
     @JsonProperty("blackPlayerId")
-    private String blackPlayerId;
+    private Long blackPlayerId;
 }

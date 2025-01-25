@@ -3,7 +3,8 @@ package org.casual_chess.cc_game.controller;
 import org.casual_chess.cc_game.constants.ApiResponseConstants;
 import org.casual_chess.cc_game.dto.ApiResponse;
 import org.casual_chess.cc_game.dto.NewGameRequest;
-import org.casual_chess.cc_game.model.Game;
+import org.casual_chess.cc_game.entity.GameEntity;
+import org.casual_chess.cc_game.model.GameWithMoves;
 import org.casual_chess.cc_game.service.impl.GameManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,10 @@ public class GameController {
 
     //* Create a New Game for Given 2 Users
     @PostMapping
-    public ResponseEntity<ApiResponse<Game>> createGame(@RequestBody NewGameRequest gameRequest) {
-        Game game = gameManagerService.createGame(gameRequest);
+    public ResponseEntity<ApiResponse<GameWithMoves>> createGame(@RequestBody NewGameRequest gameRequest) {
+        GameWithMoves game = gameManagerService.createGame(gameRequest);
 
-        ApiResponse<Game> apiResponse = new ApiResponse<>(ApiResponseConstants.SUCCESS, game);
+        ApiResponse<GameWithMoves> apiResponse = new ApiResponse<>(ApiResponseConstants.SUCCESS, game);
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
